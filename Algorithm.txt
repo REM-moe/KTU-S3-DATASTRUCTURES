@@ -1,0 +1,46 @@
+
+ALGORITHM
+	+ An Algorithm is a finite set of instructions which if followed performs a specific task, every algorithm should follow 
+		- Input : Externally supplied
+		- Output : At least one quantity is produced 
+		- Definiteness : Each instruction must be clear and unamgious 
+		- Finiteness : For all cases, Algorith will terminate after finite steps 
+		- Effictiveness : Must be feasible
+ALGORITHM ANALYSIS
+	+ To identify amount of resource and time needed for execution of an Algorithm 
+	
+	~ Space Complexity 
+		- amount of memory it needs to run for completion, space needed is sum of ...
+		1. Fixed space requirnments 
+		2. Variable space requirnments 
+
+		$ Fixed space requirnments
+			~ does not depend on the number and size of the programs input and Output
+			~ eg instruction space, space for variables constants etc
+		$ Variable space requirnments
+			~ space required by structured variables whose size depends on particular instances 
+			~ also includes space required when an algorith uses reccursion 
+		
+		! when analysing space complexity we are only concerned with Variable space requirnments !
+
+		# We can represent total space requirnments S(P) of a program as 
+				S(P) = c + S'p(I)
+			S,p (I)- programming P working on an instance I
+
+
+SPACE Complexity
+	
+	eg
+		float(a,b,c){
+			return(((a+b+c)*b)+64)/c
+		}
+	here space complexity is 0
+		only variable space requirnments are considered like reccursion, iteration, loops.
+
+TIME complexity
+	sum of compile time and run time of an algorithm - f(n)
+	1 Worst case : max value of f(n)	
+	2 Average case : the expected value(f(n)
+	3 Best case : minimum possible value f(n)
+
+

@@ -1,0 +1,27 @@
+
+Frequency Count Method For Computing Time Complexity Of An Algorithm
+	1 Frequency Count
+	2 Asymptotic Notation
+
+Frequency Count
+	RULES
+		1 Comments and 	Declarations - count = 0
+		Return and Assignment - count = 1
+		Ignore low order exponents when high order exponents are present (take e^6 form (e^2.e^6.e^2) )
+
+		eg 
+			f(n) = 7a^24 + 333455b^2 + c^20 + d^35	
+				time Complexity of f(n) = O(d^35)
+		eg
+
+		int sum(int a[], int n){            |   0
+			int s = 0;                  |   1
+			for(i = 0; i<n ; i++){      |   1 + (n+1)+n [take highest exponent]
+				s = s + a[i];       |   n
+				return s;           |   1
+			} 			    | = 3n+1 TC = O(n) 
+		}
+
+			a += k*k*k  | 4n [2 *, 1 +, 1 =] 
+	Nested loops : O(n^2)
+

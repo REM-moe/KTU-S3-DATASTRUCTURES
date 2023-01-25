@@ -1,0 +1,11 @@
+Performance Estimation
+	1 priori estimation 
+	
+Priori Estimation
+	~ it is machine indipendent
+	~ we determine the frequency count of each statement
+	~ ie how many times the steps will be executed
+Posteriori Estimation
+	~ it is machine indipendent
+	~ we take into account char. of the machine 
+
