@@ -1,144 +1,84 @@
 #include<stdio.h>
 #include<stdlib.h>
 
-struct node {
+struct node{int data;
 	struct node *lc;
 	struct node *rc;
-	int data;
 };
 
-struct node *root = NULL;
-
-void insert(int data){
-	struct node* ptr = root; // global boi
-	if( ptr == NULL){
+void inorder(struct node *root){
+	if(root != NULL){
+		inorder(root->lc);
+		printf("%d=>",root->data);
+		inorder(root->rc);
+	}
+}
+struct node *min(struct node *root){
+	struct node * c = root;
+	while(c && c->lc != NULL){
+		c = c->lc;
+	}
+	return c;
+}
+struct node *insert(struct node* root, int data){
+	if(root == NULL){
 		struct node *new = malloc(sizeof(struct node));
 		new->data = data;
-		new->lc = new->rc = NULL;
+		new->lc = NULL;
+		new->rc = NULL;
 		root = new;
+		return new;
 	}
-	struct node *temp = root;
-	struct node *parent;
-	struct node *new;
-	int flag = 1;
-	while(temp != NULL & flag == 1){
-		if(data > temp->data){
-			parent = temp;
-			temp = temp->rc;	
-		}
-		else if(data < temp->data){
-			parent = temp;
-			temp = temp->lc;
-		}
-		else{
-			printf("Data Already Exists \n No Insertion !! \n");
-			flag = 0;
-		}
-	}
-	if(temp == NULL){
-		if(data > parent->data){
-			new = malloc(sizeof(struct node));
-			new->data = data;
-			parent->rc = new;
-		}
-		else{
-			new = malloc(sizeof(struct node));
-			new->data = data;
-			parent->lc = new;
-		}
-	}
-	printf("\n  Inserted Node: %d\n",data);
-}
-
-void inorder(struct node *ptr){
-	if(ptr == NULL)
-		return;
-	inorder(ptr->lc);
-	printf("%d -> ", ptr->data);
-	inorder(ptr->rc);
-}
-/*
-struct node *delete(struct node * curr, int key){
-	if(curr == NULL)
-		return NULL;
-	struct node* tmp;
-	if(curr->data > key)
-		curr->lc = delete(curr->lc, key);
-	else if(curr->data > key)
-		curr->rc = delete(curr->rc, key);
-	else{
-		if(curr->lc == NULL){
-			tmp = curr->rc;
-			return tmp;
-		}
-		else if(curr->rc == NULL){
-			tmp = curr->lc;
-			return tmp;
-		}
-		else{
-			curr->data = tmp->data;
-			curr->rc = delete(curr->rc, tmp->data);
-		}
-	}
-}
-/*
- *
-/*void delete_lyf(int key, struct node *ptr){
-	if(ptr == NULL){
-		printf("Emp::ty Tree \n");
-		return;
-	}
-	struct node *temp = ptr;
-	struct node *parent = temp;
-	int flag = 0;
-	while(temp != NULL && flag == 0){
-		if(key == temp->data){
-			flag =1;
-		}
-		else if(key < temp->data){
-			parent = temp;
-			temp = temp->lc;
-		}
-		else if(key > temp->data){
-			parent = temp;
-			temp = temp->rc;
-		}
-		else{
-			printf("Data Does Not Exist");
-			flag = 1;
-		}
-	}
-	if(parent->rc == NULL && parent->lc == NULL){
-		// Leaf Node's}
-	}
-	else if(temp->rc != NULL && temp->lc != NULL){
-		// delete by shift monkey
+	if(data < root->data){
+		root->lc = insert(root->lc, data);
 	}
 	else{
-		//find which and delete
+		root->rc = insert(root->rc, data);
 	}
-}*/
+	return root;
+}
 
+struct node *delete(struct node* root, int key){
+	if(root == NULL)
+		return root;
+		if(key < root->data){
+			root->lc = delete(root->lc, key);
+		}
+		else if(key > root->data){
+			root->rc = delete(root->rc, key);
+		}
+		else{
+			if(root->lc == NULL){
+				struct node *tmp = root->rc;
+				free(root);
+				return tmp;
+			}
+			else if(root->rc == NULL){
+				struct node *tmp = root->lc;
+				free(root);
+				return tmp;
+			}
+			struct node *tmp = min(root->rc);
+			root->data = tmp->data;
+			root->rc = delete(root->rc, tmp->data);
 
+		}
+		return root;
+}
 int main(){
-	insert(10);
-	insert(2);
-	insert(3);
-	insert(5);
-	insert(7);
-	insert(4);
-	insert(4);
-	insert(12);
-	insert(34);
-	insert(33);
-	inorder(root);
+	struct node *node;
+	node = insert(node, 1);
+	node = insert(node, 2);
+	node = insert(node, 3);
+	node = insert(node, 4);
+	node = insert(node, 32);
+	node = insert(node, 45);
+	node = insert(node, 6);
+	inorder(node);
 	printf("\n\n");
-	delete(root, 12);
-	delete(root, 5);
-	delete(root, 7);
-	delete(root, 34);
-	delete(root, 33);
-	inorder(root);
-	free(root);
-
-}
+	node = delete(node,1);
+	node = delete(node,32);
+	node = delete(node,45);
+	node = delete(node,3);
+	inorder(node);
+}                         
